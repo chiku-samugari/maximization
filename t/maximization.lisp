@@ -23,6 +23,11 @@
       (maximals alist (lambda (x y) (and (= (mod x 2) (mod y 2)) (<= x y))) #'car)
       '((19 . a) (12 . c)))
 
-    (alist-equal (maximals alist #'= #'car) alist))
+    (alist-equal (maximals alist #'= #'car) alist)
+    (alist-equal
+      (seqmaximals alist (lambda (x y) (and (= (mod x 2) (mod y 2)) (<= x y))) #'car)
+      '((19 . a) (12 . c))))
 
   (equal (maximals "1307926" #'char<=) '(#\9))
+
+  (equal (seqmaximals "1307926" #'char<=) "9"))

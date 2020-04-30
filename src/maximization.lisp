@@ -47,3 +47,18 @@
                     (cons item (delete it acc :key key :test order))
                     (cons item acc)))))
           seq :initial-value ())))
+
+(defun seqmaximals (seq order &optional (key #'identity))
+  "A preferable variation of MAXIMALS for sequences. A sequence of same
+   type to SEQ composed of SEQ's maximal elements in the sence of ORDER
+   is returned. ORDER must be a partial order over SEQ; it must be
+   reflexive, antisymmetric and transitive."
+  (with-functions ((order x y) (key x))
+    ;; KEY of REMOVE-IF and FIND-IF is not useful in this case because
+    ;; we want to check and skip if A0 is ELEMENT.
+    (remove-if (lambda (element)
+                 (let ((projected (key element)))
+                   (find-if #'(and (not (eq element a0))
+                                   (order projected (key a0)))
+                            seq)))
+               seq)))
