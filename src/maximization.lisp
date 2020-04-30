@@ -25,3 +25,25 @@
 
    An error will be raised if the length of SEQ is zero."
   (reduce #'(if (funcall test (funcall key a0) (funcall key a1)) a1 a0) seq))
+
+;;; Since Common Lisp does not have generalized version of CONS, it is
+;;; troublesome to return a sequence that is same type as SEQ with this
+;;; algorithm.
+;;;  We can gain the performance by keeping the set of projected items
+;;; along with the actual result. I do not like that kind of
+;;; performance. Easy to be done, hard to understand in the future.
+(defun maximals (seq order &optional (key #'identity))
+  "A list composed of maximal elements of SEQ in the sence of ORDER is
+   returned. ORDER must be a partial order over SEQ; it must be
+   reflexive, antisymmetric and transitive."
+  (with-functions ((order x y) (key x))
+    (reduce (lambda (acc item)
+              (let ((projected (key item)))
+                (if (find-if #'(order projected (key _)) acc)
+                  acc
+                  ;; Be aware that to delete only the found element is
+                  ;; enough because ACC is always an antichain.
+                  (aif (projected-find-if #'(order _ projected) key acc)
+                    (cons item (delete it acc :key key :test order))
+                    (cons item acc)))))
+          seq :initial-value ())))
