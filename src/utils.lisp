@@ -54,7 +54,7 @@
 ;;; Lisp-2. That is, however, not a good aspect: Lisp-1 does not even
 ;;; need this macro!
 (export
-  (defmacro with-functions ((&rest function-application-forms) &body body)
+  (defmacro with-oneish ((&rest function-application-forms) &body body)
     `(labels ,(mapcar #`(,(car a0) ,(cdr a0)
                           (funcall ,@a0))
                       function-application-forms)
@@ -67,7 +67,7 @@
      exists, which is defaulted to NIL.
 
      Use CL:FIND-IF instead if KEY is not needed."
-    (with-functions ((pred x) (key x))
+    (with-oneish ((pred x) (key x))
       (do ((seq sequence (tail seq)))
         ((zerop (length seq)) failed)
         (let ((projected (key (head seq))))
