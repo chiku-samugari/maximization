@@ -54,10 +54,11 @@
 ;;; Lisp-2. That is, however, not a good aspect: Lisp-1 does not even
 ;;; need this macro!
 (export
-  (defmacro with-oneish ((&rest function-application-forms) &body body)
-    `(labels ,(mapcar #`(,(car a0) ,(cdr a0)
-                          (funcall ,@a0))
-                      function-application-forms)
+  (defmacro with-oneish ((&rest templates) &body body)
+    `(macrolet ,(mapcar (lambda (form)
+                          (destructuring-bind (var &rest args) form
+                            `(,var ,args `(funcall ,',var ,,@args))))
+                        templates)
        ,@body)))
 
 (export
