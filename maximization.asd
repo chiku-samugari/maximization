@@ -1,5 +1,4 @@
-;;; abackquote.asd
-;;; system definition for ABackquote
+;;; maximization.asd
 ;;;
 ;;; Author: chiku (Takehiko Nawata, samugari.penguin@gmail.com)
 ;;; License: MIT License
