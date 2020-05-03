@@ -10,6 +10,7 @@
   :license "MIT License"
   :description "Rambling about the Maximization."
   :long-description ""
+  :depends-on (:azuki :papply :abackquote)
   :serial t
   :components ((:file "src/packages")
                (:file "src/utils")
