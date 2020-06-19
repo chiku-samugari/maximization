@@ -2,7 +2,7 @@
 ;;;
 ;;; Author: chiku (Takehiko Nawata, samugari.penguin@gmail.com)
 ;;; License: MIT License
-(defsystem abackquote
+(defsystem maximization
   :name "Maximization"
   :version "0.6.0"
   :maintainer "Takehiko Nawata"
