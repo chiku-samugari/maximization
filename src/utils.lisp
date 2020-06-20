@@ -53,15 +53,14 @@
 ;;; functions can still be used as the variable because Common Lisp is
 ;;; Lisp-2. That is, however, not a good aspect: Lisp-1 does not even
 ;;; need this macro!
-(export
-  (defmacro with-oneish ((&rest fn-vars) &body body)
-    `(macrolet ,(mapcar #'(if (symbolp a0)
-                            (with-gensyms (args)
-                              `(,a0 (&rest ,args) `(funcall ,',a0 ,@,args)))
-                            (destructuring-bind (var &rest args) a0
-                              `(,var ,args `(funcall ,',var ,,@args))))
-                        fn-vars)
-       ,@body)))
+(xdefmacro with-oneish ((&rest fn-vars) &body body)
+  `(macrolet ,(mapcar #'(if (symbolp a0)
+                          (with-gensyms (args)
+                            `(,a0 (&rest ,args) `(funcall ,',a0 ,@,args)))
+                          (destructuring-bind (var &rest args) a0
+                            `(,var ,args `(funcall ,',var ,,@args))))
+                      fn-vars)
+     ,@body))
 
 (export
   (defun projected-find-if (pred key sequence &optional (failed nil))
