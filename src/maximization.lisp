@@ -21,7 +21,12 @@
      restricted to the set (CL:MAPCAR KEY SEQ). Even if there is a
      maximum element of SEQ, MAXIMIZE may not work as it is intended if
      ORDER function is not a total order since the order of comparison
-     is not ruled at all.
+     is not ruled at all. We can offer a variation of this function that
+     works properly even with a partial order over (CL:MAPCAR KEY SEQ).
+     In order to use that variation however, we need to be sure that the
+     maximum element actually exists beforehand. In that situation we
+     are also sure that the MAXIMALS function returns a list composed of
+     one element and works as a good alternative.
       From the binary relational viewpoint, MAXIMIZE function returns
      the rightmost element of SEQ in the sence of ORDER. It goes without
      saying that the 2nd argument of ORDER function (among its 2
