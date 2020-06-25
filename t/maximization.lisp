@@ -30,4 +30,8 @@
 
   (equal (maximals "1307926" #'char<=) '(#\9))
 
-  (equal (seqmaximals "1307926" #'char<=) "9"))
+  (equal (seqmaximals "1307926" #'char<=) "9")
+
+  (let ((alist '((a . 0) (b . 0) (c . 0) (x . 1) (y . 1))))
+    (not
+      (alist-equal (maximals alist #'<= #'cdr) '((x . 1) (y . 1))))))

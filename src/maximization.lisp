@@ -18,11 +18,12 @@
      order of parameters.
 
      The ORDER function should be a total order, at least if that is
-     restricted to SEQ. Even if there is a maximum element of SEQ,
-     MAXIMIZE may not work as it is intended if ORDER function is not a
-     total order since the order of comparison is not ruled at all.
-     From the binary relational viewpoint, MAXIMIZE function returns the
-     rightmost element of SEQ in the sence of ORDER. It goes without
+     restricted to the set (CL:MAPCAR KEY SEQ). Even if there is a
+     maximum element of SEQ, MAXIMIZE may not work as it is intended if
+     ORDER function is not a total order since the order of comparison
+     is not ruled at all.
+      From the binary relational viewpoint, MAXIMIZE function returns
+     the rightmost element of SEQ in the sence of ORDER. It goes without
      saying that the 2nd argument of ORDER function (among its 2
      arguments) is the right argument of the binary relation ORDER.
 
@@ -38,8 +39,8 @@
 (export
   (defun maximals (seq order &optional (key #'identity))
     "A list composed of maximal elements of SEQ in the sence of ORDER is
-     returned. ORDER must be a partial order over SEQ; it must be
-     reflexive, antisymmetric and transitive."
+     returned. ORDER must be a partial order over (CL:MAPCAR KEY SEQ);
+     it must be reflexive, antisymmetric and transitive."
     (with-oneish (order key)
       (reduce (lambda (acc item)
                 (let ((projected (key item)))
@@ -56,8 +57,9 @@
   (defun seqmaximals (seq order &optional (key #'identity))
     "A preferable variation of MAXIMALS for sequences. A sequence of same
      type to SEQ composed of SEQ's maximal elements in the sence of ORDER
-     is returned. ORDER must be a partial order over SEQ; it must be
-     reflexive, antisymmetric and transitive."
+     is returned. ORDER must be a partial order over the set
+     (CL:MAPCAR KEY SEQ); it must be reflexive, antisymmetric and
+     transitive."
     (with-oneish (order key)
       ;; KEY of REMOVE-IF and FIND-IF is not useful in this case because
       ;; we want to check and skip if A0 is ELEMENT.
