@@ -14,8 +14,8 @@
     "The extended version of argmax (in math) which a function, ORDER, to
      decide the order of projected value is specifiable. Although KEY is
      not needed from the principall view point, it contributes for the
-     clearer code in some cases. CL:SORT is used as the reference to
-     decide the order of parameters.
+     clearer code in some cases. CL:SORT was referred to decide the
+     order of parameters.
 
      The ORDER function should be a total order, at least if that is
      restricted to SEQ. Even if there is a maximum element of SEQ,
